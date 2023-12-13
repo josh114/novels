@@ -1,0 +1,4 @@
+@chakra-ui/react @emotion/react @emotion/styled @reduxjs/toolkit axios date-fns framer-motion
+jwt-decode
+
+react-icons react-redux react-router-dom react-select react-spinners react-youtube swiper
