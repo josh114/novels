@@ -32,13 +32,10 @@ const chapterSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Novel',
     },
-<<<<<<< HEAD
-=======
     slug: {
       type: String,
-      required: true
-    }
->>>>>>> 06436c678661729e7cad6b36f5afab7d746348e4
+      required: true,
+    },
   },
   {
     timestamps: true,
