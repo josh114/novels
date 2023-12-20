@@ -19,8 +19,9 @@ import {
 } from "react-icons/md";
 import { useGetNovelsQuery } from "../../features/novelSlice";
 import { useState } from "react";
+import Tables from "../../components/Tables";
 
-const Novels = () => {
+const Uploads = () => {
   const [page, setPage] = useState(1);
 
   let buttons;
@@ -104,13 +105,13 @@ const Novels = () => {
     </HStack>
   );
   return (
-    <Flex w={"100%"} p={"30px"}>
+    <Flex w={"100%"} p={"30px"} flexDir={"column"}>
       <VStack w={"100%"}>
         <Flex justify={"start"} w={"100%"}>
           <Button
             colorScheme={"teal"}
             size={"xs"}
-            onClick={() => navigate("/admin/novel/add")}
+            onClick={() => navigate("/admin/upload/add")}
           >
             Add new
           </Button>
@@ -127,7 +128,7 @@ const Novels = () => {
           <HStack>
             <FormControl>
               <Select
-                placeholder="All Novels"
+                placeholder="All Uploads"
                 // onChange={(e) => setMedia(e.target.value)}
                 focusBorderColor="teal.400"
                 fontSize={"12px"}
@@ -192,8 +193,11 @@ const Novels = () => {
           {buttons}
         </Flex>
       </VStack>
+      <Flex w={"100%"}>
+        <Tables data={paginatedData} />
+      </Flex>
     </Flex>
   );
 };
 
-export default Novels;
+export default Uploads;

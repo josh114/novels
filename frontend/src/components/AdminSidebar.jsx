@@ -13,7 +13,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { MdSpaceDashboard, MdOutlineBook } from "react-icons/md";
 import { FaBook } from "react-icons/fa6";
 
-import { LuSettings } from "react-icons/lu";
+import { LuUploadCloud, LuSettings } from "react-icons/lu";
 
 const AdminSidebar = () => {
   const location = useLocation();
@@ -85,6 +85,22 @@ const AdminSidebar = () => {
                 >
                   <ListIcon as={MdOutlineBook} />
                   <Text>Chapters</Text>
+                </HStack>
+              </NavLink>
+            </ListItem>
+
+            <ListItem color={"blackAlpha.700"}>
+              <NavLink to={"/admin/upload"}>
+                <HStack
+                  style={
+                    pathname === "/admin/upload" ||
+                    pathname === "/admin/upload/upload"
+                      ? activeStyle
+                      : inActive
+                  }
+                >
+                  <ListIcon as={LuUploadCloud} />
+                  <Text>Uploads</Text>
                 </HStack>
               </NavLink>
             </ListItem>

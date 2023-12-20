@@ -15,6 +15,8 @@ import Chapter from "./pages/admin/Chapter";
 import AddChapter from "./pages/admin/AddChapter";
 import UpdateChapter from "./pages/admin/UpdateChapter";
 import useTitle from "./hooks/useTitle";
+import AddUpload from "./pages/admin/AddUpload";
+import Uploads from "./pages/admin/Uploads";
 
 function App() {
   useTitle("Novel kona");
@@ -26,6 +28,7 @@ function App() {
       {/* the following routes are protected and strictly for admin and would require authentication */}
       <Route path="/admin" element={<Layout />}>
         <Route index element={<Login />} />
+
         <Route element={<AdminLayout />}>
           <Route path="dash">
             <Route index element={<AdminDash />} />
@@ -41,6 +44,11 @@ function App() {
             <Route index element={<Chapter />} />
             <Route path="add" element={<AddChapter />} />
             <Route path="update" element={<UpdateChapter />} />
+          </Route>
+
+          <Route path="upload">
+            <Route index element={<Uploads />} />
+            <Route path="add" element={<AddUpload />} />
           </Route>
         </Route>
         {/* <Route element={<PersistLogin />}>
