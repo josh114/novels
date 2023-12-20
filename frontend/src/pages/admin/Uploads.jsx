@@ -17,7 +17,7 @@ import {
   MdKeyboardArrowRight,
   // MdContentCopy,
 } from "react-icons/md";
-import { useGetNovelsQuery } from "../../features/novelSlice";
+import { useGetUploadsQuery } from "../../features/UploadSlice";
 import { useState } from "react";
 import Tables from "../../components/Tables";
 
@@ -26,7 +26,7 @@ const Uploads = () => {
 
   let buttons;
   const navigate = useNavigate();
-  const { data, isLoading, isSuccess, isError, error } = useGetNovelsQuery();
+  const { data, isLoading, isSuccess, isError, error } = useGetUploadsQuery();
   let perPage = 5;
   let content;
   let totalPages;

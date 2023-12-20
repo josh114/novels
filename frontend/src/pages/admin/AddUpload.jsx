@@ -35,7 +35,7 @@ const AddUpload = () => {
         return;
       }
       const fd = new FormData();
-      fd.append("video", file);
+      fd.append("file", file);
       setMsg("Uploading");
       setProgress((prevState) => {
         return { ...prevState, started: true };
@@ -144,7 +144,11 @@ const AddUpload = () => {
           ) : (
             ""
           )}
-          {msg && <Text color={"white"}>{msg}</Text>}
+          {msg && (
+            <Text color={"black"} fontSize={"13px"}>
+              {msg}
+            </Text>
+          )}
         </Flex>
         <Flex
           width={{ base: "90%", md: "80%", lg: "70%" }}

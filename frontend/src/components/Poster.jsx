@@ -1,7 +1,7 @@
 import { Button, Flex, Image, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
-import { dlUrl } from "../../config/url";
-import MediaLibrary from "../MediaLibrary";
+import { dl_url } from "../config/url";
+import MediaLibrary from "./MediaLibrary";
 
 const Poster = ({ handleId, type, reset }) => {
   const [movie, setMovie] = useState({});
@@ -23,7 +23,7 @@ const Poster = ({ handleId, type, reset }) => {
       >
         <Image
           src={
-            movie.thumbnail ? `${dlUrl}/download/vids/${movie.filename}` : ""
+            movie.thumbnail ? `${dl_url}/download/files/${movie.filename}` : ""
           }
           maxW={"80%"}
         />

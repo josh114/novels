@@ -14,11 +14,27 @@ import {
 import { useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import { useState } from "react";
+import Poster from "../../components/Poster";
 
 const AddNovel = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [poster, setPoster] = useState("");
+
+  const handlePoster = (id) => {
+    setPoster(id);
+    // console.log('this is poster', id);
+  };
+
+  const handleSubmit = async () => {
+    const body = {
+      poster,
+      description,
+      title,
+    };
+    console.log(body);
+  };
   return (
     <Flex w={"100%"} p={"30px"} flexDir={"column"}>
       <Flex w={"100%"} mb={"20px"}>
@@ -34,9 +50,17 @@ const AddNovel = () => {
         </Flex>
       </Flex>
       <Flex w={"100%"} justify={"center"}>
-        <form className="form">
+        <form className="form" onSubmit={() => handleSubmit}>
           <HStack w={"100%"}>
-            <Flex></Flex>
+            <Flex
+              w={"300px"}
+              h={"450px"}
+              border={"2px solid teal"}
+              align={"center"}
+              justify={"center"}
+            >
+              <Poster handleId={handlePoster} />
+            </Flex>
             <VStack w={{ base: "100%", md: "60%" }}>
               <FormControl w={"100%"}>
                 <FormLabel>Novel Title</FormLabel>

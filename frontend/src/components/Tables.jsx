@@ -52,12 +52,12 @@ const Tables = ({ data }) => {
         onMouseOut={() => setDisplay(false)}
         key={upload.id}
       >
-        <Td p={"12px"} borderColor={"gray.300"}>
+        <Td p={"12px"} borderColor={"gray.200"}>
           <Flex w={"100%"} justify={"start"} align={"start"}>
             <Checkbox />
           </Flex>
         </Td>
-        <Td p={"12px"} borderColor={"rgba(255,255,255, 0.1)"}>
+        <Td p={"12px"} borderColor={"gray.200"}>
           <HStack align={"start"} flexDir={{ base: "column", sm: "row" }}>
             <Image
               src={`${dl_url}/download/${upload.thumbnail}`}
@@ -65,15 +65,15 @@ const Tables = ({ data }) => {
             />
             <VStack align={"start"} ml={"10px"} justify={"start"}>
               <Heading size={"xs"}>{upload.title}</Heading>
-              <HandleText text={upload.filename} fontSize={"14px"} />
+              <HandleText text={upload.filename} fontSize={"12px"} />
               <Flex gap={2} flexDir={{ base: "column", md: "row" }}>
                 <NavLink>
-                  <Text fontSize={"14px"} color={"teal.400"}>
+                  <Text fontSize={"12px"} color={"teal.400"}>
                     Edit
                   </Text>
                 </NavLink>
                 <Text
-                  fontSize={"14px"}
+                  fontSize={"12px"}
                   color={"red.400"}
                   _hover={{ cursor: "pointer" }}
                   onClick={async () => {
@@ -84,11 +84,11 @@ const Tables = ({ data }) => {
                     }
                   }}
                 >
-                  Delete Permanently
+                  Delete
                 </Text>
 
                 <Text
-                  fontSize={"14px"}
+                  fontSize={"12px"}
                   color={"teal.400"}
                   _hover={{ cursor: "pointer" }}
                   onClick={async () => {
@@ -106,7 +106,7 @@ const Tables = ({ data }) => {
                   Copy Link
                 </Text>
                 <NavLink to={`${dl_url}/${upload.filename}`}>
-                  <Text fontSize={"14px"} color={"teal.400"}>
+                  <Text fontSize={"12px"} color={"teal.400"}>
                     Download file
                   </Text>
                 </NavLink>
@@ -114,7 +114,7 @@ const Tables = ({ data }) => {
             </VStack>
           </HStack>
         </Td>
-        <Td p={"12px"} borderColor={"rgba(255,255,255, 0.1)"}>
+        <Td p={"12px"} borderColor={"gray.200"}>
           <HandleDate date={upload.createdAt} fontSize={"14px"} />
         </Td>
       </Tr>
