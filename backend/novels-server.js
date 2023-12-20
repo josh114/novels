@@ -1,13 +1,13 @@
-import cluster from "node:cluster";
-import mongoose from "mongoose";
-import app from "./app.js";
-import * as dotenv from "dotenv";
+import cluster from 'node:cluster';
+import mongoose from 'mongoose';
+import app from './app.js';
+import * as dotenv from 'dotenv';
 dotenv.config();
 const db = process.env.db;
 const port = process.env.PORT;
 mongoose
   .connect(db)
-  .then(() => console.log("DB connected successfully"))
+  .then(() => console.log('DB connected successfully'))
   .catch((err) => {
     console.error(err?.message);
   });

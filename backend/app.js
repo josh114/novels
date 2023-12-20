@@ -6,7 +6,7 @@ import userRouter from './src/user/userRoutes.js';
 import authRouter from './src/auth/authRoutes.js';
 import novelRouter from './src/novel/novelRouter.js';
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(logger);
 app.use(express.json());
 
