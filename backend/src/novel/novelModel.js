@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+
 const novelSchema = new mongoose.Schema(
   {
     name: {
@@ -10,7 +11,8 @@ const novelSchema = new mongoose.Schema(
       type: String,
     },
     image: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Upload'
     },
   },
   {
