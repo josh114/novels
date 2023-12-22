@@ -1,12 +1,12 @@
-import { Novel, Chapter } from './novelModel.js';
-
+import { Novel, Chapter } from "./novelModel.js";
 
 export const createNovel = async (req, res) => {
   try {
+    console.log(req.body);
     const body = {
       name: req.body.name,
-      description: req.body.description || '',
-      image: req.body.image
+      description: req.body.description || "",
+      image: req.body.image,
     };
     const novel = await Novel.create(body);
     res.status(201).json(novel);
@@ -16,7 +16,7 @@ export const createNovel = async (req, res) => {
 };
 export const getNovels = async (req, res) => {
   try {
-    const novels = await Novel.find().populate('upload');
+    const novels = await Novel.find().populate("upload");
     res.status(200).json(novels);
   } catch (error) {
     res.status(404).json({ message: error?.message });
