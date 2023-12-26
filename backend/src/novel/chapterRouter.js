@@ -5,17 +5,15 @@ import {
   getChapters,
   updateChapter,
   deleteChapter,
-} from './chapter';
-import cache from 'express-redis-cache';
-
+} from './chapter.js';
 const chapterRouter = Router();
 
 chapterRouter.route('/').post(createChapter);
 chapterRouter
   .route('/:id')
-  .get(cache.route({ expires: 5000 }), getChapter)
+  .get(getChapter)
   .patch(updateChapter)
   .delete(deleteChapter);
-chapterRouter.route('/:novel').get(cache.route({ expires: 5000 }), getChapters);
+chapterRouter.route('/novel/:novel').get(getChapters);
 
 export default chapterRouter;
