@@ -14,6 +14,10 @@ const novelSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Upload'
     },
+    slug: {
+      type: String,
+      
+    }
   },
   {
     timestamps: true,
