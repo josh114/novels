@@ -22,13 +22,12 @@ import { dl_url } from '../../config/url';
 import HandleText from '../../components/HandleText';
 import { useNavigate } from 'react-router-dom';
 import AddChapter from '../../components/AddChapter';
+import { useGetChaptersQuery } from '../../features/chapterSlice';
 const Chapter = () => {
-  
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [file, setFile] = useState({});
-  const [chap, setChap] = useState(null);
-  
+  const [chap, setChap] = useState({});
 
   const handleNovel = (file) => {
     setFile(file);
@@ -99,7 +98,7 @@ const Chapter = () => {
               <AddChapter novel={file} />
             </Flex>
           </VStack>
-          <VStack w={'100%'}>
+          <VStack w={'100%'} mt={'30px'}>
             <Heading fontSize={'16px'} color={'gray.600'}>
               Chapters
             </Heading>
