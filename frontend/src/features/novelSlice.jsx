@@ -1,16 +1,21 @@
-import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
-import { apiSlice } from "../app/api/apiSlice";
+import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import { apiSlice } from '../app/api/apiSlice';
+import { api_endpoint } from '../config/url';
 
 const novelAdapter = createEntityAdapter({
   sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt),
 });
 const initialState = novelAdapter.getInitialState();
 
-export const novelApiSlice = apiSlice.injectEndpoints({
+export const novelApiSlice = createApi({
+  reducerPath: 'getNovelSlice',
+  baseQuery: fetchBaseQuery({ baseUrl: api_endpoint }),
+  tagTypes: ['Novel'],
   endpoints: (builder) => ({
     getNovels: builder.query({
       query: () => ({
-        url: "/novel",
+        url: '/novel',
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError;
         },
@@ -25,10 +30,10 @@ export const novelApiSlice = apiSlice.injectEndpoints({
       providesTags: (result) => {
         if (result?.ids) {
           return [
-            { type: "Novel", id: "LIST" },
-            ...result.ids.map((id) => ({ type: "Novel", id })),
+            { type: 'Novel', id: 'LIST' },
+            ...result.ids.map((id) => ({ type: 'Novel', id })),
           ];
-        } else return [{ type: "Novel", id: "LIST" }];
+        } else return [{ type: 'Novel', id: 'LIST' }];
       },
     }),
     getSingleNovel: builder.query({
@@ -48,46 +53,124 @@ export const novelApiSlice = apiSlice.injectEndpoints({
       providesTags: (result) => {
         if (result?.ids) {
           return [
-            { type: "Novel", id: "LIST" },
-            ...result.ids.map((id) => ({ type: "Novel", id })),
+            { type: 'Novel', id: 'LIST' },
+            ...result.ids.map((id) => ({ type: 'Novel', id })),
           ];
-        } else return [{ type: "Novel", id: "LIST" }];
+        } else return [{ type: 'Novel', id: 'LIST' }];
       },
     }),
     addNovel: builder.mutation({
       query: (novelData) => ({
-        url: "/novel",
-        method: "POST",
+        url: '/novel',
+        method: 'POST',
         body: {
           ...novelData,
         },
       }),
-      invalidatesTags: [{ type: "Novel", id: "LIST" }],
+      invalidatesTags: [{ type: 'Novel', id: 'LIST' }],
     }),
     updateNovel: builder.mutation({
       query: (id, novelData) => ({
         url: `/novel/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: {
           ...novelData,
         },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Novel", id: arg.id }],
+      invalidatesTags: (result, error, arg) => [{ type: 'Novel', id: arg.id }],
     }),
     deleteNovel: builder.mutation({
       query: (id) => ({
         url: `/novel/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
         body: { id },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Novel", id: arg.id }],
+      invalidatesTags: (result, error, arg) => [{ type: 'Novel', id: arg.id }],
     }),
   }),
 });
+// export const novelApiSlice = apiSlice.injectEndpoints({
+//   endpoints: (builder) => ({
+//     getNovels: builder.query({
+//       query: () => ({
+//         url: '/novel',
+//         validateStatus: (response, result) => {
+//           return response.status === 200 && !result.isError;
+//         },
+//       }),
+//       transformResponse: (responseData) => {
+//         const loadedNovels = responseData.map((novel) => {
+//           novel.id = novel._id;
+//           return novel;
+//         });
+//         return novelAdapter.setAll(initialState, loadedNovels);
+//       },
+//       providesTags: (result) => {
+//         if (result?.ids) {
+//           return [
+//             { type: 'Novel', id: 'LIST' },
+//             ...result.ids.map((id) => ({ type: 'Novel', id })),
+//           ];
+//         } else return [{ type: 'Novel', id: 'LIST' }];
+//       },
+//     }),
+//     getSingleNovel: builder.query({
+//       query: (id) => ({
+//         url: `/novel/${id}`,
+//         validateStatus: (response, result) => {
+//           return response.status === 200 && !result.isError;
+//         },
+//       }),
+//       transformResponse: (responseData) => {
+//         const loadedNovels = responseData.map((novel) => {
+//           novel.id = novel._id;
+//           return novel;
+//         });
+//         return novelAdapter.setAll(initialState, loadedNovels);
+//       },
+//       providesTags: (result) => {
+//         if (result?.ids) {
+//           return [
+//             { type: 'Novel', id: 'LIST' },
+//             ...result.ids.map((id) => ({ type: 'Novel', id })),
+//           ];
+//         } else return [{ type: 'Novel', id: 'LIST' }];
+//       },
+//     }),
+//     addNovel: builder.mutation({
+//       query: (novelData) => ({
+//         url: '/novel',
+//         method: 'POST',
+//         body: {
+//           ...novelData,
+//         },
+//       }),
+//       invalidatesTags: [{ type: 'Novel', id: 'LIST' }],
+//     }),
+//     updateNovel: builder.mutation({
+//       query: (id, novelData) => ({
+//         url: `/novel/${id}`,
+//         method: 'PATCH',
+//         body: {
+//           ...novelData,
+//         },
+//       }),
+//       invalidatesTags: (result, error, arg) => [{ type: 'Novel', id: arg.id }],
+//     }),
+//     deleteNovel: builder.mutation({
+//       query: (id) => ({
+//         url: `/novel/${id}`,
+//         method: 'DELETE',
+//         body: { id },
+//       }),
+//       invalidatesTags: (result, error, arg) => [{ type: 'Novel', id: arg.id }],
+//     }),
+//   }),
+// });
 
 export const {
-  useGetNovelsQuery,
-  useGetSingleNovelQuery,
+  // useGetNovelsQuery,
+  // useGetSingleNovelQuery,
   useAddNovelMutation,
   useUpdateNovelMutation,
   useDeleteNovelMutation,

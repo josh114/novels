@@ -17,7 +17,8 @@ import {
   MdKeyboardArrowRight,
   // MdContentCopy,
 } from 'react-icons/md';
-import { useGetNovelsQuery } from '../../features/novelSlice';
+
+import { useGetNovelsQuery } from '../../features/getNovelSlice';
 import { useState } from 'react';
 import Tables from '../../components/Tables';
 

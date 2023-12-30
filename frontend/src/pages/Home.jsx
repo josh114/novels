@@ -14,6 +14,7 @@ import NovelCard from '../components/NovelCard';
 import book from '../assets/book.jpg';
 import book2 from '../assets/book2.jpg';
 import book3 from '../assets/book3.jpg';
+import { useGetNovelsQuery } from '../features/getNovelSlice';
 
 const Home = () => {
   const img = {
@@ -28,6 +29,11 @@ const Home = () => {
     image: book3,
     title: 'A moment in Destiny',
   };
+  const { data, isLoading, isError, error, isSuccess } = useGetNovelsQuery();
+  if (isLoading) console.log('loading');
+  if (isError) console.log(error);
+  if (isSuccess) console.log(data);
+
   return (
     <Flex w={'100%'}>
       <Flex width={'100%'} flexDirection={'column'}>
