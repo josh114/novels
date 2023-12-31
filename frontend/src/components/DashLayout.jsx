@@ -8,7 +8,7 @@ const DashLayout = () => {
   return (
     <Flex maxW={'100vw'} minH={'100vh'}>
       <Sidebar />
-      <Flex flexGrow={1} flexDir={'column'}>
+      <Flex w={'100%'} maxW={'calc(100% - 220px)'} flexDir={'column'}>
         <Navbar />
         <Flex w={'100%'} h={'100%'}>
           <Outlet />

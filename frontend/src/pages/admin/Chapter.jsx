@@ -23,6 +23,7 @@ import HandleText from '../../components/HandleText';
 import { useNavigate } from 'react-router-dom';
 import AddChapter from '../../components/AddChapter';
 import { useGetChaptersQuery } from '../../features/chapterSlice';
+import AdminChapters from '../../components/AdminChapters';
 const Chapter = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -102,6 +103,13 @@ const Chapter = () => {
             <Heading fontSize={'16px'} color={'gray.600'}>
               Chapters
             </Heading>
+            <VStack>
+              {file.id ? (
+                <AdminChapters novelId={file.id} />
+              ) : (
+                'no chapters found'
+              )}
+            </VStack>
           </VStack>
         </VStack>
       </Flex>

@@ -10,8 +10,10 @@ import {
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useEffect, useState } from 'react';
+import { useAddChapterMutation } from '../features/chapterSlice';
 
 const AddChapter = ({ novel }) => {
+  const [addChapter] = useAddChapterMutation();
   const [chap, setChap] = useState('');
   const [file, setFile] = useState({});
   const [content, setContent] = useState('');
@@ -20,7 +22,19 @@ const AddChapter = ({ novel }) => {
       setFile(novel);
     }
   }, [novel]);
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => {
+    try {
+      const body = {
+        chapter: chap,
+        novel: file.id,
+        content,
+      };
+      const createChap = await addChapter(body).unwrap();
+      console.log(createChap);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Flex w={'100%'}>
       <HStack w={'100%'} align={'start'} justify={'center'} gap={10}>
@@ -46,7 +60,7 @@ const AddChapter = ({ novel }) => {
               onBlur={(event, editor) => {
                 const data = editor.getData();
                 setContent(data);
-                console.log('data.', data);
+                // console.log('data.', data);
               }}
             />
           </FormControl>

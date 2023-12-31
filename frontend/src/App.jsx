@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import DashLayout from './components/DashLayout';
-import Home from './pages/Home';
+import Home from './pages/public/Home';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 // import PersistLogin from "./features/auth/PersistLogin";
@@ -16,6 +16,7 @@ import useTitle from './hooks/useTitle';
 import AddUpload from './pages/admin/AddUpload';
 import Uploads from './pages/admin/Uploads';
 import EditChapter from './pages/admin/EditChapter';
+import ViewChapter from './pages/admin/ViewChapter';
 
 function App() {
   useTitle('Novel kona');
@@ -41,7 +42,8 @@ function App() {
 
           <Route path='chapter'>
             <Route index element={<Chapter />} />
-            <Route path='Edit' element={<EditChapter />} />
+            <Route path='edit' element={<EditChapter />} />
+            <Route path='view/:id' element={<ViewChapter />} />
           </Route>
 
           <Route path='upload'>

@@ -1,3 +1,4 @@
+import Updates from '../updates/updatesModel.js';
 import { Chapter, Novel } from './novelModel.js';
 
 export const createChapter = async (req, res) => {
@@ -31,6 +32,12 @@ export const createChapter = async (req, res) => {
       content,
       slug,
     };
+    const update = {
+      slug,
+      novel: nov.name,
+      chapter: chapter
+    };
+    await Updates.create(update);
     const chap = await Chapter.create(body);
     res.status(201).json(chap);
   } catch (error) {
