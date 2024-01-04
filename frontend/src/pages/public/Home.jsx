@@ -15,12 +15,13 @@ import NovelCard from '../../components/NovelCard';
 import { useGetNovelsQuery } from '../../features/getNovelSlice';
 import Recommended from '../../components/Recommended';
 import Socials from '../../components/Socials';
+import Trending from '../../components/Trending';
 
 const Home = () => {
-  const { data, isLoading, isError, error, isSuccess } = useGetNovelsQuery();
-  if (isLoading) console.log('loading');
-  if (isError) console.log(error);
-  if (isSuccess) console.log(data);
+  // const { data, isLoading, isError, error, isSuccess } = useGetNovelsQuery();
+  // if (isLoading) console.log('loading');
+  // if (isError) console.log(error);
+  // if (isSuccess) console.log(data);
 
   return (
     <Flex w={'100%'}>
@@ -45,7 +46,9 @@ const Home = () => {
           </VStack>
         </Flex>
 
-        <Flex p={'50px'} gap={6} flexWrap={'wrap'}></Flex>
+        <Flex p={'50px'} gap={6} flexWrap={'wrap'}>
+          <Trending />
+        </Flex>
       </Flex>
       <Flex
         w={'300px'}
