@@ -10,9 +10,11 @@ import {
 import { useGetNovelsQuery } from '../features/getNovelSlice';
 import { dl_url } from '../config/url';
 import HandleText from './HandleText';
+import { useNavigate } from 'react-router-dom';
 
 const Recommended = () => {
   const { data, isLoading, isSuccess, isError, error } = useGetNovelsQuery();
+  const navigate = useNavigate();
   let novel;
   if (isLoading) {
     novel = 'Loading...';
@@ -33,6 +35,7 @@ const Recommended = () => {
           _hover={{
             bg: 'gray.50',
           }}
+          onClick={() => navigate(`/${novel.slug ? novel.slug : novel.id}`)}
         >
           <CardBody p={3}>
             <HStack align={'center'}>

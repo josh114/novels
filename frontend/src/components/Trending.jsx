@@ -13,6 +13,7 @@ import { useGetNovelsQuery } from '../features/getNovelSlice';
 import { dl_url } from '../config/url';
 import HandleText from './HandleText';
 import FetchNovel from './FetchNovel';
+import { useNavigate } from 'react-router-dom';
 
 const Trending = () => {
   //   const { data, isLoading, isSuccess, isError, error } = useGetNovelsQuery();
@@ -74,12 +75,19 @@ const Trending = () => {
   //   } else if (isError) {
   //     novel = `Something went wrong! ${error?.message}`;
   //   }
+  const navigate = useNavigate();
   const { novel, errorMsg, load } = FetchNovel();
   let loadedNovel;
   if (novel) {
     loadedNovel = novel.slice(0, 4).map((novel) => {
       return (
-        <Card w={'125px'} p={0} overflow={'hidden'} key={novel.id}>
+        <Card
+          w={'125px'}
+          p={0}
+          overflow={'hidden'}
+          key={novel.id}
+          onClick={() => navigate(`/${novel.slug ? novel.slug : novel.id}`)}
+        >
           <CardBody p={3} alignContent={'center'}>
             <Image
               src={`${dl_url}/download/files/${

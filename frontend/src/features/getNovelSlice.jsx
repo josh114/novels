@@ -35,7 +35,7 @@ export const getNovelSlice = createApi({
       },
     }),
     getSingleNovel: builder.query({
-      query: ({ id }) => ({
+      query: (id) => ({
         url: `/novel/${id}`,
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError;

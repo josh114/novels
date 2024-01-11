@@ -17,6 +17,9 @@ import AddUpload from './pages/admin/AddUpload';
 import Uploads from './pages/admin/Uploads';
 import EditChapter from './pages/admin/EditChapter';
 import ViewChapter from './pages/admin/ViewChapter';
+import Novel from './pages/public/Novel';
+import PubChapter from './pages/public/PubChapter';
+import Search from './pages/public/Search';
 
 function App() {
   useTitle('Novel kona');
@@ -24,6 +27,9 @@ function App() {
     <Routes>
       <Route path='/' element={<DashLayout />}>
         <Route index element={<Home />} />
+        <Route path='/:id' element={<Novel />} />
+        <Route path='/:id/:chapterId' element={<PubChapter />} />
+        <Route path='/search' element={<Search />} />
       </Route>
       {/* the following routes are protected and strictly for admin and would require authentication */}
       <Route path='/admin' element={<Layout />}>
