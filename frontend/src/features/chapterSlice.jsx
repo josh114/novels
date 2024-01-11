@@ -59,6 +59,29 @@ export const chapterApiSlice = createApi({
         } else return [{ type: 'Chapter', id: 'LIST' }];
       },
     }),
+    getUpdates: builder.query({
+      query: () => ({
+        url: `/updates`,
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
+      transformResponse: (responseData) => {
+        const loadedChapters = responseData.map((chapter) => {
+          chapter.id = chapter._id;
+          return chapter;
+        });
+        return chapterAdapter.setAll(initialState, loadedChapters);
+      },
+      providesTags: (result) => {
+        if (result?.ids) {
+          return [
+            { type: 'Chapter', id: 'LIST' },
+            ...result.ids.map((id) => ({ type: 'Chapter', id })),
+          ];
+        } else return [{ type: 'Chapter', id: 'LIST' }];
+      },
+    }),
     addChapter: builder.mutation({
       query: (chapterData) => ({
         url: '/chapter',
@@ -97,6 +120,7 @@ export const chapterApiSlice = createApi({
 export const {
   useGetChaptersQuery,
   useGetSingleChapterQuery,
+  useGetUpdatesQuery,
   useAddChapterMutation,
   useUpdateChapterMutation,
   useDeleteChapterMutation,

@@ -1,5 +1,6 @@
 import { Flex, Heading, Image } from '@chakra-ui/react';
 import novel from '../assets/novels.png';
+import LatestUpdates from './LatestUpdates';
 
 const Sidebar = () => {
   return (
@@ -18,9 +19,10 @@ const Sidebar = () => {
           Novel Kona
         </Heading>
       </Flex>
-      <Heading size={'xs'} color={'gray.600'}>
+      <Heading size={'xs'} color={'gray.600'} mb={'15px'}>
         Latest Updates
       </Heading>
+      <LatestUpdates />
     </Flex>
   );
 };
