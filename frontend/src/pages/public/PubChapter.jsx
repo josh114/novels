@@ -2,14 +2,15 @@
 
 import { Button, Flex, HStack, Heading, Text, VStack } from '@chakra-ui/react';
 import { NavLink, useParams } from 'react-router-dom';
-import {
-  useGetSingleChapterQuery,
-} from '../../features/chapterSlice';
+import { useGetSingleChapterQuery } from '../../features/chapterSlice';
 import HandleDateFormat from '../../components/HandleDateFormat';
 
 const PubChapter = () => {
   const { chapterId } = useParams();
   let chap;
+  let nextChap;
+  let novSlug;
+  let chapSlug;
   const { data, isLoading, isSuccess, isError, error } =
     useGetSingleChapterQuery(chapterId);
 
@@ -17,7 +18,12 @@ const PubChapter = () => {
   if (isError) chap = error;
   if (isSuccess) {
     chap = Object.values(data.entities)[0];
-    console.log(chap);
+    if (chap.chapter < chap.count) {
+      nextChap = chap.chapter + 1;
+    }
+    chapSlug = chap.slug;
+    novSlug = chap.novel.slug;
+    // console.log(chap);
   }
   return (
     <Flex w={'100%'}>
@@ -94,6 +100,15 @@ const PubChapter = () => {
                 />
               ) : (
                 'no content'
+              )}
+            </Flex>
+            <Flex w={'100%'} justify={'center'}>
+              {nextChap ? (
+                <NavLink to={`/${novSlug}/${novSlug}-chapter-${nextChap}`}>
+                  <Text>Chapter {nextChap}</Text>
+                </NavLink>
+              ) : (
+                <Text>The End</Text>
               )}
             </Flex>
           </Flex>
