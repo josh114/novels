@@ -1,20 +1,20 @@
-import Updates from "../updates/updatesModel.js";
-import { Chapter, Novel } from "./novelModel.js";
-import mongoose from "mongoose";
+import Updates from '../updates/updatesModel.js';
+import { Chapter, Novel } from './novelModel.js';
+import mongoose from 'mongoose';
 
 export const createChapter = async (req, res) => {
   try {
     const { chapter, novel, content } = req.body;
     if (!chapter || !content || !novel) {
       res.status(400).json({
-        message: "chapter number and content as well as novel id is required",
+        message: 'chapter number and content as well as novel id is required',
       });
       return;
     }
     const nov = await Novel.findById(novel);
     if (!nov) {
       res.status(400).json({
-        message: "novel not found",
+        message: 'novel not found',
       });
       return;
     }
@@ -22,8 +22,8 @@ export const createChapter = async (req, res) => {
     if (!nov.slug) {
       slug = `${nov.name
         .toLowerCase()
-        .split(" ")
-        .join("-")}-chapter-${chapter}`;
+        .split(' ')
+        .join('-')}-chapter-${chapter}`;
     } else {
       slug = `${nov.slug}-chapter-${chapter}`;
     }
@@ -49,7 +49,7 @@ export const createChapter = async (req, res) => {
 export const getChapters = async (req, res) => {
   try {
     const { novel } = req.params;
-    const chaps = await Chapter.find({ novel }).populate("novel");
+    const chaps = await Chapter.find({ novel }).populate('novel');
     res.status(200).json(chaps);
   } catch (error) {
     res.status(404).json({ message: error?.message });
@@ -62,14 +62,14 @@ export const getChapter = async (req, res) => {
     let count;
     const { id } = req.params;
     if (mongoose.Types.ObjectId.isValid(id)) {
-      chap = await Chapter.findById(id).populate("novel").exec();
+      chap = await Chapter.findById(id).populate('novel').exec();
       count = await Chapter.countDocuments({ novel: chap.novel });
     } else {
-      chap = await Chapter.findOne({ slug: id }).populate("novel").exec();
+      chap = await Chapter.findOne({ slug: id }).populate('novel').exec();
       count = await Chapter.countDocuments({ novel: chap.novel });
     }
     if (!chap) {
-      res.status(404).json({ message: "chapter not found" });
+      res.status(404).json({ message: 'chapter not found' });
       return;
     } else {
       const chapter = {
@@ -86,12 +86,18 @@ export const getChapter = async (req, res) => {
 export const updateChapter = async (req, res) => {
   try {
     const { id } = req.params;
-    const exist = await Chapter.findById(id);
-    if (!exist) {
-      res.status(404).json({ message: "chapter not found" });
-      return;
+    let chap;
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      chap = await Chapter.findById(id).populate('novel').exec();
+    } else {
+      chap = await Chapter.findOne({ slug: id }).populate('novel').exec();
     }
-    const chap = await Chapter.findByIdAndUpdate(id, req.body, { new: true });
+    if (chap) {
+      chap.content = req.body.content;
+    }
+
+    await chap.save();
+    res.status(200).json(chap);
   } catch (error) {
     res.status(400).json({ message: error?.message });
   }
@@ -102,7 +108,7 @@ export const deleteChapter = async (req, res) => {
     const { id } = req.params;
     const exist = await Chapter.findById(id);
     if (!exist) {
-      res.status(404).json({ message: "chapter not found" });
+      res.status(404).json({ message: 'chapter not found' });
       return;
     }
     await Chapter.findByIdAndDelete(id);

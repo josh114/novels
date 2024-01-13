@@ -56,5 +56,5 @@ progress::-moz-progress-bar {
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
-  text-align: center;
+  text-align: justify;
 }
