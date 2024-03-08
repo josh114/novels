@@ -11,7 +11,7 @@ const RequireAuth = () => {
   if (token) {
     content = <Outlet />;
   } else {
-    content = <Navigate to="/admin" state={{ from: location }} replace />;
+    content = <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return content;
