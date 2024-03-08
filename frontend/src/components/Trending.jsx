@@ -2,18 +2,18 @@ import {
   Card,
   CardBody,
   CardFooter,
-  Flex,
+  // Flex,
   HStack,
-  Heading,
+  // Heading,
   Image,
   Text,
-  VStack,
-} from '@chakra-ui/react';
-import { useGetNovelsQuery } from '../features/getNovelSlice';
-import { dl_url } from '../config/url';
-import HandleText from './HandleText';
-import FetchNovel from './FetchNovel';
-import { useNavigate } from 'react-router-dom';
+  // VStack,
+} from "@chakra-ui/react";
+// import { useGetNovelsQuery } from '../features/getNovelSlice';
+import { dl_url } from "../config/url";
+// import HandleText from './HandleText';
+import FetchNovel from "./FetchNovel";
+import { useNavigate } from "react-router-dom";
 
 const Trending = () => {
   //   const { data, isLoading, isSuccess, isError, error } = useGetNovelsQuery();
@@ -82,36 +82,36 @@ const Trending = () => {
     loadedNovel = novel.slice(0, 4).map((novel) => {
       return (
         <Card
-          w={'125px'}
+          w={"125px"}
           p={0}
-          overflow={'hidden'}
+          overflow={"hidden"}
           key={novel.id}
           onClick={() => navigate(`/${novel.slug ? novel.slug : novel.id}`)}
         >
-          <CardBody p={3} alignContent={'center'}>
+          <CardBody p={3} alignContent={"center"}>
             <Image
               src={`${dl_url}/download/files/${
-                novel.image ? novel.image.filename : ''
+                novel.image ? novel.image.filename : ""
               }`}
-              h={'120px'}
-              maxH={'120px'}
+              h={"120px"}
+              maxH={"120px"}
             />
           </CardBody>
           <CardFooter p={3}>
-            <Text fontSize={'12px'}>{novel.name}</Text>
+            <Text fontSize={"12px"}>{novel.name}</Text>
           </CardFooter>
         </Card>
       );
     });
   } else {
-    loadedNovel = 'no novel found';
+    loadedNovel = "no novel found";
   }
   return (
     <HStack
-      flexWrap={'wrap'}
-      w={'100%'}
+      flexWrap={"wrap"}
+      w={"100%"}
       gap={5}
-      justify={loadedNovel.length >= 4 ? 'space-between' : 'flex-start'}
+      justify={loadedNovel.length >= 4 ? "space-between" : "flex-start"}
     >
       {loadedNovel}
     </HStack>

@@ -1,11 +1,11 @@
-import { useGetNovelsQuery } from '../features/getNovelSlice';
+import { useGetNovelsQuery } from "../features/novelSlice";
 
 const FetchNovel = () => {
   const { data, isLoading, isSuccess, isError, error } = useGetNovelsQuery();
   let load;
   let errorMsg;
   let novel;
-  if (isLoading) load = 'Loading...';
+  if (isLoading) load = "Loading...";
   if (isSuccess)
     novel = Object.values(data.entities).sort((a, b) =>
       b.createdAt.localeCompare(a.createdAt)

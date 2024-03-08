@@ -17,18 +17,18 @@ import {
   CardBody,
   Image,
   VStack,
-} from '@chakra-ui/react';
-import { useState } from 'react';
-import { useGetNovelsQuery } from '../features/getNovelSlice';
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useGetNovelsQuery } from "../features/novelSlice";
 import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
   // MdContentCopy,
-} from 'react-icons/md';
-import HandleText from './HandleText';
-import { dl_url } from '../config/url';
+} from "react-icons/md";
+import HandleText from "./HandleText";
+import { dl_url } from "../config/url";
 
 const HandleNovel = ({ onNovelSelected, isOpen, onOpen, onClose }) => {
   const [selectedNovel, setSelectedNovel] = useState({});
@@ -47,7 +47,7 @@ const HandleNovel = ({ onNovelSelected, isOpen, onOpen, onClose }) => {
   let paginatedData;
   let buttons;
   if (isLoading) {
-    novel = 'Loading...';
+    novel = "Loading...";
   } else if (isSuccess) {
     let loadedNovels = Object.values(data.entities).sort((a, b) =>
       b.createdAt.localeCompare(a.createdAt)
@@ -74,44 +74,44 @@ const HandleNovel = ({ onNovelSelected, isOpen, onOpen, onClose }) => {
 
   buttons = (
     <HStack>
-      <Text fontSize={'12px'}>{items} items</Text>
+      <Text fontSize={"12px"}>{items} items</Text>
       <Button
-        colorScheme='teal'
-        size={'xs'}
+        colorScheme="teal"
+        size={"xs"}
         onClick={() => handlePagination(1)}
         isDisabled={page === 1}
       >
         <Icon as={MdKeyboardDoubleArrowLeft} />
       </Button>
       <Button
-        colorScheme='teal'
-        size={'xs'}
+        colorScheme="teal"
+        size={"xs"}
         onClick={() => handlePagination(page - 1)}
         isDisabled={page === 1}
       >
         <Icon as={MdKeyboardArrowLeft} />
       </Button>
       <Input
-        type='text'
+        type="text"
         value={page}
-        w={'30px'}
-        size={'xs'}
-        fontSize={'12px'}
+        w={"30px"}
+        size={"xs"}
+        fontSize={"12px"}
         onChange={(e) => setPage(Number(e.target.value))}
         disabled={totalPages === 1}
       />
-      <Text fontSize={'12px'}>of {totalPages}</Text>
+      <Text fontSize={"12px"}>of {totalPages}</Text>
       <Button
-        size={'xs'}
-        colorScheme='teal'
+        size={"xs"}
+        colorScheme="teal"
         isDisabled={page === totalPages || totalPages === 0}
         onClick={() => handlePagination(page + 1)}
       >
         <Icon as={MdKeyboardArrowRight} />
       </Button>
       <Button
-        size={'xs'}
-        colorScheme='teal'
+        size={"xs"}
+        colorScheme="teal"
         isDisabled={page === totalPages || totalPages === 0}
         onClick={() => handlePagination(totalPages)}
       >
@@ -120,68 +120,68 @@ const HandleNovel = ({ onNovelSelected, isOpen, onOpen, onClose }) => {
     </HStack>
   );
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={'sm'}>
+    <Modal isOpen={isOpen} onClose={onClose} size={"sm"}>
       <ModalOverlay />
-      <ModalContent maxH={'80%'}>
+      <ModalContent maxH={"80%"}>
         <ModalCloseButton />
         <ModalHeader>
-          <Flex flexDir={'column'} gap={5}>
-            <Heading fontSize={'14px'}>Select Novel</Heading>
+          <Flex flexDir={"column"} gap={5}>
+            <Heading fontSize={"14px"}>Select Novel</Heading>
             <Input
-              type='text'
-              placeholder='search'
-              w={{ base: '100%', lg: '300px', xl: '400px' }}
-              mt={{ base: '20px', lg: '0' }}
-              focusBorderColor='teal.400'
+              type="text"
+              placeholder="search"
+              w={{ base: "100%", lg: "300px", xl: "400px" }}
+              mt={{ base: "20px", lg: "0" }}
+              focusBorderColor="teal.400"
               // onChange={handleChange}
-              size={'sm'}
-              borderRadius={'5px'}
+              size={"sm"}
+              borderRadius={"5px"}
             />
             {buttons}
           </Flex>
         </ModalHeader>
-        <ModalBody h={'100%'} overflowY={'auto'}>
+        <ModalBody h={"100%"} overflowY={"auto"}>
           <Flex
-            h={'100%'}
-            overflowY={'auto'}
-            w={'100%'}
-            flexDir={'column'}
+            h={"100%"}
+            overflowY={"auto"}
+            w={"100%"}
+            flexDir={"column"}
             gap={5}
           >
             {paginatedData ? (
               paginatedData.map((novel) => (
                 <Card
-                  direction={'row'}
+                  direction={"row"}
                   key={novel.id}
-                  w={'100%'}
+                  w={"100%"}
                   p={0}
                   onClick={() => {
                     setSelectedNovel(novel);
                   }}
                   _hover={{
-                    bg: 'gray.50',
+                    bg: "gray.50",
                     //   borderColor: 'gray.300',
                   }}
-                  border={selectedNovel.id === novel.id ? '2px solid teal' : ''}
-                  bg={selectedNovel.id === novel.id ? 'gray.50' : ''}
+                  border={selectedNovel.id === novel.id ? "2px solid teal" : ""}
+                  bg={selectedNovel.id === novel.id ? "gray.50" : ""}
                 >
                   <CardBody p={3}>
-                    <HStack align={'center'}>
+                    <HStack align={"center"}>
                       <Image
                         src={`${dl_url}/download/${
                           novel.thumbnail
                             ? novel.thumbnail
                             : novel.image
                             ? novel.image.thumbnail
-                            : ''
+                            : ""
                         }`}
-                        maxH={'50px'}
+                        maxH={"50px"}
                       />
-                      <VStack align={'flex-start'}>
-                        <Heading fontSize={'14px'}>{novel.name}</Heading>
+                      <VStack align={"flex-start"}>
+                        <Heading fontSize={"14px"}>{novel.name}</Heading>
                         <HandleText
                           text={novel.description}
-                          fontSize={'12px'}
+                          fontSize={"12px"}
                         />
                       </VStack>
                     </HStack>
@@ -195,8 +195,8 @@ const HandleNovel = ({ onNovelSelected, isOpen, onOpen, onClose }) => {
         </ModalBody>
         <ModalFooter>
           <Button
-            colorScheme='teal'
-            size={'sm'}
+            colorScheme="teal"
+            size={"sm"}
             onClick={() => handleSelectedNovel(selectedNovel)}
           >
             Select

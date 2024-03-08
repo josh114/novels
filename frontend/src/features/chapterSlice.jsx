@@ -1,17 +1,17 @@
-import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-// import { apiSlice } from '../app/api/apiSlice';
-import { api_endpoint } from '../config/url';
+import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { apiSlice } from "../app/api/apiSlice";
+// import { api_endpoint } from "../config/url";
 
 const chapterAdapter = createEntityAdapter({
   sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt),
 });
 const initialState = chapterAdapter.getInitialState();
 
-export const chapterApiSlice = createApi({
-  reducerPath: 'chapterSlice',
-  baseQuery: fetchBaseQuery({ baseUrl: api_endpoint }),
-  tagTypes: ['Chapter'],
+export const chapterApiSlice = apiSlice.injectEndpoints({
+  // reducerPath: 'chapterSlice',
+  // baseQuery: fetchBaseQuery({ baseUrl: api_endpoint }),
+  // tagTypes: ['Chapter'],
   endpoints: (builder) => ({
     getChapters: builder.query({
       query: (novelId) => ({
@@ -30,10 +30,10 @@ export const chapterApiSlice = createApi({
       providesTags: (result) => {
         if (result?.ids) {
           return [
-            { type: 'Chapter', id: 'LIST' },
-            ...result.ids.map((id) => ({ type: 'Chapter', id })),
+            { type: "Chapter", id: "LIST" },
+            ...result.ids.map((id) => ({ type: "Chapter", id })),
           ];
-        } else return [{ type: 'Chapter', id: 'LIST' }];
+        } else return [{ type: "Chapter", id: "LIST" }];
       },
     }),
     getSingleChapter: builder.query({
@@ -54,10 +54,10 @@ export const chapterApiSlice = createApi({
       providesTags: (result) => {
         if (result?.ids) {
           return [
-            { type: 'Chapter', id: 'LIST' },
-            ...result.ids.map((id) => ({ type: 'Chapter', id })),
+            { type: "Chapter", id: "LIST" },
+            ...result.ids.map((id) => ({ type: "Chapter", id })),
           ];
-        } else return [{ type: 'Chapter', id: 'LIST' }];
+        } else return [{ type: "Chapter", id: "LIST" }];
       },
     }),
     getUpdates: builder.query({
@@ -77,45 +77,45 @@ export const chapterApiSlice = createApi({
       providesTags: (result) => {
         if (result?.ids) {
           return [
-            { type: 'Chapter', id: 'LIST' },
-            ...result.ids.map((id) => ({ type: 'Chapter', id })),
+            { type: "Chapter", id: "LIST" },
+            ...result.ids.map((id) => ({ type: "Chapter", id })),
           ];
-        } else return [{ type: 'Chapter', id: 'LIST' }];
+        } else return [{ type: "Chapter", id: "LIST" }];
       },
     }),
     addChapter: builder.mutation({
       query: (chapterData) => ({
-        url: '/chapter',
-        method: 'POST',
+        url: "/chapter",
+        method: "POST",
         body: {
           ...chapterData,
         },
       }),
-      invalidatesTags: [{ type: 'Chapter', id: 'LIST' }],
+      invalidatesTags: [{ type: "Chapter", id: "LIST" }],
     }),
     updateChapter: builder.mutation({
       query: (chapterData) => {
-        console.log('this is from chapterslice', chapterData);
+        console.log("this is from chapterslice", chapterData);
         return {
           url: `/chapter/${chapterData.id}`,
-          method: 'PATCH',
+          method: "PATCH",
           body: {
             ...chapterData,
           },
         };
       },
       invalidatesTags: (result, error, arg) => [
-        { type: 'Chapter', id: arg.id },
+        { type: "Chapter", id: arg.id },
       ],
     }),
     deleteChapter: builder.mutation({
       query: (id) => ({
         url: `/chapter/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
         body: { id },
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: 'Chapter', id: arg.id },
+        { type: "Chapter", id: arg.id },
       ],
     }),
   }),

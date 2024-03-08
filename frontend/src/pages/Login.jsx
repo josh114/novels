@@ -17,29 +17,26 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../features/auth/authApiSlice";
 import { useState } from "react";
 import { setCredentials } from "../features/auth/authSlice";
-import usePersist from "../hooks/usePersist";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [setPersist] = usePersist();
   const dispatch = useDispatch();
   const toast = useToast();
   const [login] = useLoginMutation();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { accessToken, user } = await login({
+      const body = {
         email,
         password,
-      }).unwrap();
-      localStorage.setItem("persist", true);
+      };
+      const { accessToken, user } = await login(body).unwrap();
       dispatch(setCredentials({ accessToken, user }));
-      setPersist((prev) => !prev);
       setEmail("");
       setPassword("");
-      navigate("/admin/dash");
+      navigate("/admin/novel");
       toast({
         title: "Login Successful",
         position: "top-right",

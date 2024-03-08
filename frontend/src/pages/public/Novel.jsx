@@ -1,5 +1,5 @@
 // import React from 'react';
-import { useGetSingleNovelQuery } from "../../features/getNovelSlice";
+import { useGetSingleNovelQuery } from "../../features/novelSlice";
 import { NavLink, useParams } from "react-router-dom";
 import {
   Button,

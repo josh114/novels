@@ -3,21 +3,21 @@ import {
   CardBody,
   Flex,
   HStack,
-  Heading,
+  // Heading,
   Image,
   VStack,
-} from '@chakra-ui/react';
-import { useGetNovelsQuery } from '../features/getNovelSlice';
-import { dl_url } from '../config/url';
-import HandleText from './HandleText';
-import { useNavigate } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { useGetNovelsQuery } from "../features/novelSlice";
+import { dl_url } from "../config/url";
+import HandleText from "./HandleText";
+import { useNavigate } from "react-router-dom";
 
 const Recommended = () => {
   const { data, isLoading, isSuccess, isError, error } = useGetNovelsQuery();
   const navigate = useNavigate();
   let novel;
   if (isLoading) {
-    novel = 'Loading...';
+    novel = "Loading...";
   } else if (isSuccess) {
     let loadedNovels = Object.values(data.entities).sort((a, b) =>
       b.createdAt.localeCompare(a.createdAt)
@@ -25,35 +25,35 @@ const Recommended = () => {
     novel = loadedNovels.map((novel) => {
       return (
         <Card
-          direction={'row'}
+          direction={"row"}
           key={novel.id}
-          w={'100%'}
+          w={"100%"}
           p={0}
           //   onClick={() => {
           //     setSelectedNovel(novel);
           //   }}
           _hover={{
-            bg: 'gray.50',
+            bg: "gray.50",
           }}
           onClick={() => navigate(`/${novel.slug ? novel.slug : novel.id}`)}
         >
           <CardBody p={3}>
-            <HStack align={'center'}>
+            <HStack align={"center"}>
               <Image
                 src={`${dl_url}/download/${
                   novel.thumbnail
                     ? novel.thumbnail
                     : novel.image
                     ? novel.image.thumbnail
-                    : ''
+                    : ""
                 }`}
-                maxH={'30px'}
+                maxH={"30px"}
               />
-              <VStack align={'flex-start'}>
+              <VStack align={"flex-start"}>
                 <HandleText
-                  bold={'semi-bold'}
+                  bold={"semi-bold"}
                   text={novel.name}
-                  fontSize={'12px'}
+                  fontSize={"12px"}
                   base={20}
                 />
                 {/* <HandleText
@@ -75,7 +75,7 @@ const Recommended = () => {
     novel = `Something went wrong! ${error?.message}`;
   }
   return (
-    <Flex w={'100%'} p={'20px'} flexDirection={'column'} gap={5}>
+    <Flex w={"100%"} p={"20px"} flexDirection={"column"} gap={5}>
       {novel}
     </Flex>
   );
