@@ -1,34 +1,54 @@
-// import React from 'react';
+import React from 'react';
 
 import { Button, Flex, HStack, Heading, Text, VStack } from '@chakra-ui/react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useGetSingleChapterQuery } from '../../features/chapterSlice';
 import HandleDateFormat from '../../components/HandleDateFormat';
+import ChapterService from '../../service/api_service';
+import { useEffect } from 'react';
+import FetchChapter from '../../components/FetchChapter';
 
 const PubChapter = () => {
   const { chapterId } = useParams();
-  let chap;
-  let nextChap;
-  let novSlug;
-  let chapSlug;
-  const { data, isLoading, isSuccess, isError, error } =
-    useGetSingleChapterQuery(chapterId);
+  const [chap, setChap] = React.useState(null);
+  const [nextChap, setNextChap] = React.useState(null);
+  const [novSlug, setNovSlug] = React.useState(null);
+  const [chapSlug, setChapSlug] = React.useState(null);
+  
+  // let chap = FetchChapter(chapterId);
+  // let nextChap;
+  // let novSlug;
+  // let chapSlug;
 
-  if (isLoading) chap = 'loading ..';
-  if (isError) chap = error;
-  if (isSuccess) {
-    chap = Object.values(data.entities)[0];
-    if (chap.chapter < chap.count) {
-      nextChap = chap.chapter + 1;
+ 
+  
+  const getChapter = async (chapterId) => {
+    try {
+      // const chapter = await FetchChapter(chapterId);
+      // setChap(chapter);
+      if (typeof(chap) === 'object'){
+        if (chap.chapter < chap.count) {
+          setNextChap(chap.chapter + 1);
+        } 
+        setChapSlug(chap.slug);
+        setNovSlug(chap.novel.slug);
+        console.log(chap);
+      }
+    } catch (error) {
+      console.error(error);
     }
-    chapSlug = chap.slug;
-    novSlug = chap.novel.slug;
-    // console.log(chap);
   }
+  
+
+  useEffect(()=> {
+    getChapter(chapterId);
+  }, [chapterId])
+
   return (
     <Flex w={'100%'}>
       <Flex w={'100%'} flexDir={'column'}>
-        <HStack w={'100%'} mt={'20px'} justify={'space-between'} p={'0 50px'}>
+        <Text>this is </Text>
+        {/* <HStack w={'100%'} mt={'20px'} justify={'space-between'} p={'0 50px'}>
           <HStack>
             <NavLink to={'/'}>
               <Text fontSize={'12px'} _hover={{ color: 'teal.500' }}>
@@ -112,7 +132,7 @@ const PubChapter = () => {
               )}
             </Flex>
           </Flex>
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );
